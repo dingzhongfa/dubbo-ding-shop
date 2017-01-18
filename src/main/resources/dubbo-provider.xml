@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+    <bean id="goodService" class="com.ding.shop.service.impl.GoodServiceImpl"/>
+    <bean id="orderService" class="com.ding.shop.service.impl.OrderServiceImpl"/>
+    <bean id="shopService" class="com.ding.shop.service.impl.ShopServiceImpl"/>
+    <bean id="userService" class="com.ding.shop.service.impl.UserServiceImpl"/>
+
+    <dubbo:application name="ding-shop"  />
+    <dubbo:registry  protocol="zookeeper" address="127.0.0.1:1234" />
+    <dubbo:protocol name="dubbo" port="20880" />
+    <dubbo:service interface="com.ding.shop.service.GoodService" ref="goodServiceImpl" />
+    <dubbo:reference id="goodServiceImpl" interface="com.ding.shop.service.GoodService" />
+
+    <dubbo:service interface="com.ding.shop.service.GoodService" ref="goodService" version="1.0.0"/>
+    <dubbo:service interface="com.ding.shop.service.OrderService" ref="orderService" version="1.0.0"/>
+    <dubbo:service interface="com.ding.shop.service.ShopService" ref="shopService" version="1.0.0"/>
+    <dubbo:service interface="com.ding.shop.service.UserService" ref="userService" version="1.0.0"/>
+
+</beans>
